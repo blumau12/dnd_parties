@@ -3,7 +3,6 @@ from PySide2.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QHBoxL
 import sys
 
 from gui_tools.widgets import CompanyWorld, Characters
-from core.container import Data
 
 
 class MainWindow(QWidget):
@@ -12,7 +11,6 @@ class MainWindow(QWidget):
         self.setWindowTitle("DnD parties")
         self.resize(1024, 768)
 
-        self.data = Data()
         self.company_world = CompanyWorld(self)
         self.tools = None
         self.characters = Characters(self)

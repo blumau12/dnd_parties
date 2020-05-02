@@ -1,7 +1,7 @@
 
 class WorldDatetime:
-    def __init__(self):
-        self.minutes = 0
+    def __init__(self, start_minutes=0):
+        self.minutes = start_minutes
 
     def datetime(self):
         total_minutes = self.minutes
