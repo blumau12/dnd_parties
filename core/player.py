@@ -4,4 +4,4 @@ class Player:
         self.name = name
         self.email = ''
         self.notes = []
-        self.worlds = []
+        self.companies = []  # class Company
