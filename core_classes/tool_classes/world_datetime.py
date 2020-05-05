@@ -1,10 +1,9 @@
-
 class WorldDatetime:
-    def __init__(self, start_minutes=0):
-        self.minutes = start_minutes
+    def __init__(self, start_minute=0):
+        self.minute = start_minute
 
     def datetime(self):
-        total_minutes = self.minutes
+        total_minutes = self.minute
         years = total_minutes // 525600
         total_minutes -= years * 525600
         months = total_minutes // 43200
@@ -27,16 +26,16 @@ class WorldDatetime:
         return result
 
     def day_number(self):
-        return (self.minutes // 1440) + 1
+        return (self.minute // 1440) + 1
 
     def __add__(self, minutes):
-        return self.minutes + minutes
+        return self.minute + minutes
 
     def __sub__(self, minutes):
-        return self.minutes - minutes
+        return self.minute - minutes
 
     def __iadd__(self, minutes):
-        self.minutes += minutes
+        self.minute += minutes
 
     def __isub__(self, minutes):
-        self.minutes -= minutes
+        self.minute -= minutes

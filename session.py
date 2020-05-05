@@ -29,17 +29,14 @@ class Session:
         self.current_company.add_world(world)
 
     def add_new_character(self, **kwargs):
-        character = core_classes.Character(
-            personal_info=core_classes.PersonalInfo(**kwargs),
-            level_based_stats=core_classes.LevelBasedStats(),
-            situational_stats=core_classes.SituationalStats())
+        character = core_classes.Character(**kwargs)
         self.current_company.add_character(character)
 
     def add_new_item(self, **kwargs):
         if 'max_charge' in kwargs:
             kwargs['charge'] = core_classes.Charge(kwargs.pop('max_charge'))
         if 'start_minutes' in kwargs and 'shelf_life' in kwargs:
-            start_datetime = core_classes.WorldDatetime(kwargs.pop('start_minutes'))
+            start_datetime = core_classes.tool_classes.WorldDatetime(kwargs.pop('start_minutes'))
             kwargs['shelf_life'] = core_classes.ShelfLife(start_datetime, kwargs.pop('shelf_life'))
         item = core_classes.Item(**kwargs)
         self.current_company.add_item(item)

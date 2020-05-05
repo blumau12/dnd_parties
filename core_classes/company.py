@@ -5,6 +5,7 @@ class Company:
         self.notes = []  # class str
         self.players = []  # class Player
         self.worlds = []  # class World
+        self.languages = {}
 
         self.current_world = None  # class World
 
@@ -35,3 +36,9 @@ class Company:
     def remove_item(self, item):
         assert self.current_world is not None, "choose a world before item removing"
         self.current_world.remove_item(item)
+
+    def add_language(self, name):
+        self.languages.setdefault(name, {})
+
+    def add_word_to_language(self, lang, word, meaning):
+        self.languages[lang][word] = meaning
