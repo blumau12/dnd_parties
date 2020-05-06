@@ -4,7 +4,7 @@ from uuid import uuid4
 class Item:
     def __init__(self, **kwargs):
         self.name = kwargs['name'] if 'name' in kwargs else 'unnamed_item'
-        self.notes = kwargs['notes'] if 'notes' in kwargs else []
+        self.notes = kwargs['notes'] if 'notes' in kwargs else ''
         self.weight = kwargs['weight'] if 'weight' in kwargs else 0
         self.cost = kwargs['cost'] if 'cost' in kwargs else 0
         self.shelf_life = kwargs['shelf_life'] if 'shelf_life' in kwargs else None  # class ShelfLife

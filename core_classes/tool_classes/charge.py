@@ -5,6 +5,6 @@ class Charge:
         self.max_charge = max_charge
 
     def refill(self, amount=None):
-        if amount is None:
-            amount = self.max_charge
-        self.charge = amount
+        if not amount:
+            amount = self.max_charge - self.charge
+        self.charge += amount

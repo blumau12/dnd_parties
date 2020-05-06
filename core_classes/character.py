@@ -9,23 +9,36 @@ class Character:
         self.situational_stats = SituationalStats()
         self.effects = ''  # blessed, ill, or just a good boy
         self.resources = [
-            Resource(name='food', refill_triggers=['eat'], charge=Charge(2)),
-            Resource(name='water', refill_triggers=['drink'], charge=Charge(2)),
-            Resource(name='exhaust', refill_triggers=['short_rest'], charge=Charge(2)),
-            Resource(name='dashes', refill_triggers=['eat'], charge=Charge(2)),
-        ]  # class Resource food, water, exhaust, dashes
+            Resource(name='food', refill_triggers={'eat_half': 1, 'eat_full': 2}, charge=Charge(2)),
+            Resource(name='water', refill_triggers={'drink_half': 1, 'drink_full': 2}, charge=Charge(2)),
+            Resource(name='exhaust', refill_triggers={'short_rest': 1}, charge=Charge(6)),
+            Resource(name='dashes', refill_triggers={'long_rest': 0}, charge=Charge(2)),
+        ]
 
         self.id = uuid4()
 
-    def do_short_rest(self):
+    def trigger(self, trigger):
         for res in self.resources:
-            if 'short_rest' in res.refill_triggers:
-                res.charge.refill()
+            if trigger in res.refill_triggers:
+                res.charge.refill(res.refill_triggers[trigger])
+
+    def do_short_rest(self):
+        self.trigger('short_rest')
 
     def do_long_rest(self):
-        for res in self.resources:
-            if 'long_rest' in res.refill_triggers:
-                res.charge.refill()
+        self.trigger('long_rest')
+
+    def eat_half(self):
+        self.trigger('eat_half')
+
+    def drink(self):
+        self.trigger('drink_half')
+
+    def eat_full(self):
+        self.trigger('eat_full')
+
+    def drink_full(self):
+        self.trigger('drink_full')
 
 
 class PersonalInfo:

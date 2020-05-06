@@ -30,33 +30,33 @@ class World:
                     if 'new_day' in res.refill_triggers:
                         res.charge.refill()
 
-    def do_short_rest(self, add_60_minutes=False):
+    def trigger(self, trigger):
         for obj in self.characters + self.items:
             for res in obj.resources:
-                if 'short_rest' in res.refill_triggers:
-                    res.charge.refill()
+                if trigger in res.refill_triggers:
+                    res.charge.refill(res.refill_triggers[trigger])
+
+    def do_short_rest(self, add_60_minutes=False):
+        self.trigger('short_rest')
         if add_60_minutes:
             self.add_time(minutes=60)
 
     def do_long_rest(self, add_8_hours=False):
-        for obj in self.characters + self.items:
-            for res in obj.resources:
-                if 'long_rest' in res.refill_triggers:
-                    res.charge.refill()
+        self.trigger('long_rest')
         if add_8_hours:
             self.add_time(minutes=8*60)
 
-    def eat_up(self, amount=2):
-        for obj in self.characters + self.items:
-            for res in obj.resources:
-                if 'eat' in res.refill_triggers:
-                    res.charge.refill(amount)
+    def eat_half(self):
+        self.trigger('eat_half')
 
-    def drink_up(self, amount=2):
-        for obj in self.characters + self.items:
-            for res in obj.resources:
-                if 'drink' in res.refill_triggers:
-                    res.charge.refill(amount)
+    def drink(self):
+        self.trigger('drink_half')
+
+    def eat_full(self):
+        self.trigger('eat_full')
+
+    def drink_full(self):
+        self.trigger('drink_full')
 
     def get_character_by_name(self, name):
         for char in self.characters:
@@ -67,5 +67,3 @@ class World:
         for char in self.characters:
             if char.id == _id:
                 return char
-
-
